@@ -17,7 +17,8 @@ main_page <- tabPanel(
     mainPanel(
       title = "Simulation Results",
       titlePanel("Simulation Results"),
-      plotOutput("plot")
+      plotOutput("plot"),
+      verbatimTextOutput("summary")
     )
   )
 )
@@ -30,8 +31,7 @@ about_page <- tabPanel(
 
 draw_plot <- function(data) {
   ggplot(data = data, aes(x = value)) +
-    geom_histogram(color="black", fill="white") +
-    stat_summary()
+    geom_histogram(color="black", fill="white")
 }
 
 write_stats <- function(data) {
@@ -47,18 +47,25 @@ ui <- navbarPage(
 server <- function(input, output, session) {
   results <- NULL
   
-  simulation_plot <- eventReactive(
+  simulation <- eventReactive(
     input$run_button,
     {
       req(input$n)
       req(input$sample_size)
       json_data <- GET(glue("http://0.0.0.0:5000/simulation/simulate/{input$n}/{input$sample_size}/"))
       results <- as_tibble(unlist(content(json_data)$results))
-      draw_plot(results)
     }
   )
   
-  output$plot <- renderPlot(simulation_plot())
+  output$plot <- renderPlot({
+    results <- simulation()
+    draw_plot(results)
+  })
+  
+  output$summary <- renderPrint({
+    results <- simulation()
+    write_stats(results)
+  })
 }
 
 shinyApp(ui, server)
