@@ -17,8 +17,9 @@ main_page <- tabPanel(
     mainPanel(
       title = "Simulation Results",
       titlePanel("Simulation Results"),
+      verbatimTextOutput("summary"),
       plotOutput("plot"),
-      verbatimTextOutput("summary")
+      plotOutput("box_plot")
     )
   )
 )
@@ -31,7 +32,16 @@ about_page <- tabPanel(
 
 draw_plot <- function(data) {
   ggplot(data = data, aes(x = value)) +
-    geom_histogram(color="black", fill="white")
+    geom_histogram(color="black", fill="white") +
+    xlab("Computed Threshold") + 
+    ylab("")
+}
+
+draw_box_plot <- function(data) {
+  ggplot(data = data, aes(x = value)) +
+    geom_boxplot(color="black", fill="white") +
+    xlab("Computed Threshold") + 
+    ylab("")
 }
 
 write_stats <- function(data) {
@@ -60,6 +70,11 @@ server <- function(input, output, session) {
   output$plot <- renderPlot({
     results <- simulation()
     draw_plot(results)
+  })
+  
+  output$box_plot <- renderPlot({
+    results <- simulation()
+    draw_box_plot(results)
   })
   
   output$summary <- renderPrint({
