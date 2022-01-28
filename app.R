@@ -78,7 +78,7 @@ draw_plot <- function(data) {
 }
 
 draw_plot_custom <- function(data) {
-  ggplot(data = data, aes(x = value)) +
+  ggplot(data = data, aes(x = answer)) +
     geom_bar(color="black", fill="white") +
     xlab("") + 
     ylab("")
@@ -133,6 +133,8 @@ server <- function(input, output, session) {
   
   output$plot_custom <- renderPlot({
     results <- simulation_custom()
+    results <- results %>%
+      mutate(answer = (ifelse(value == 1, "Yes", "No")))
     draw_plot_custom(results)
   })
   
