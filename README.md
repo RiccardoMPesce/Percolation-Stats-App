@@ -1,6 +1,6 @@
 # Percolation Stats App
 
-Web app to visualize Percolation statistics from the simulator build [here](https://github.com/RiccardoMPesce/Percolation-Theory-Simulation).
+Web app to visualize Percolation statistics from the simulator built [here](https://github.com/RiccardoMPesce/Percolation-Theory-Simulation).
 
 ## Come usare la web app
 
@@ -20,3 +20,5 @@ __Aumentando la dimensione di uno o dell'altro si incorrono in tempi più lunghi
 La seconda pagina, __Custom Threshold Analysis__, ci permette di fissare una soglia di percolazione e simulare la proporzione di campioni in cui il sistema lattice percola. Tale soglia va inserita come numero decimale da 0 ad 1 nel campo custom threshold.
 
 Seguire la sintassi utilizzata nel testo segnaposto per evitare problemi quando si definiscono server e porta.
+
+Una volta inseriti i parametri nei vari campi, premendo il tasto per avviare la simulazione si possono osservare nel pannello destro i grafici.
