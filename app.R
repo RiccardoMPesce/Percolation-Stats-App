@@ -81,7 +81,8 @@ draw_plot_custom <- function(data) {
   ggplot(data = data, aes(x = answer)) +
     geom_bar(color="black", fill="white") +
     xlab("") + 
-    ylab("")
+    ylab("") + 
+    labs(title="Does it percolate?")
 }
 
 draw_box_plot <- function(data) {
